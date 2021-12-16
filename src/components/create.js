@@ -16,7 +16,7 @@ export class Create extends React.Component {
         this.onChangeBookGenre = this.onChangeBookGenre.bind(this);
         this.onChangeBookCover = this.onChangeBookCover.bind(this);
 
-        //construct the created movie object's properties
+        //construct the created book object's properties
         this.state = {
             Title: '',
             Author: '',
@@ -27,27 +27,27 @@ export class Create extends React.Component {
         }
     }
 
-    onChangeBookTitle(e) {//add the forms title to the constructed movie object 
+    onChangeBookTitle(e) {//add the forms title to the constructed book object 
         this.setState({ Title: e.target.value })
     }
 
-    onChangeBookAuthor(e) {//add the forms year to the constructed movie object 
+    onChangeBookAuthor(e) {//add the forms year to the constructed book object 
         this.setState({ Author: e.target.value })
     }
 
-    onChangeBookYear(e) {//add the forms year to the constructed movie object 
+    onChangeBookYear(e) {//add the forms year to the constructed book object 
         this.setState({ Year: e.target.value })
     }
 
-    onChangeBookISBN(e) {//add the forms poster to the constructed movie object 
+    onChangeBookISBN(e) {//add the forms poster to the constructed book object 
         this.setState({ ISBN: e.target.value })
     }
 
-    onChangeBookGenre(e) {//add the forms poster to the constructed movie object 
+    onChangeBookGenre(e) {//add the forms poster to the constructed book object 
         this.setState({ Genre: e.target.value })
     }
 
-    onChangeBookCover(e) {//add the forms poster to the constructed movie object 
+    onChangeBookCover(e) {//add the forms poster to the constructed book object 
         this.setState({ Cover: e.target.value })
     }
 
@@ -117,19 +117,19 @@ export class Create extends React.Component {
                         ></textarea>
                     </div>
                     <div className="form-group">
-                        <label>Add Book Genre: </label>
-                        <textarea type="text"
-                            className="form-control"
-                            value={this.state.Genre}
-                            onChange={this.onChangeBookGenre}
-                        ></textarea>
-                    </div>
-                    <div className="form-group">
                         <label>Add Book ISBN: </label>
                         <textarea type="text"
                             className="form-control"
                             value={this.state.ISBN}
                             onChange={this.onChangeBookISBN}
+                        ></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label>Add Book Genre: </label>
+                        <textarea type="text"
+                            className="form-control"
+                            value={this.state.Genre}
+                            onChange={this.onChangeBookGenre}
                         ></textarea>
                     </div>
                     <div className="form-group">

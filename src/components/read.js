@@ -14,7 +14,7 @@ export class Read extends React.Component {
             .then(//returns this method if promise is fulfilled
                 (response) => {
                     //update the state variable with the promised JSON BLOB
-                    this.setState({ books: response.data.books })
+                    this.setState({ books: response.data })
                 }
             )
             .catch(//returns this method if promise is not fulfilled

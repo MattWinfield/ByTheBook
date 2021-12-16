@@ -2,6 +2,7 @@ const express = require('express') //Creates a variable to Include Express with 
 const cors = require('cors') //Creates a variable to Include CORS with the node REQUIRE Function
 const app = express() //Create an Express application and store as a Varaible
 const bodyParser = require('body-parser') //Creates a variable to Include Body-Parser with the node REQUIRE Function
+const mongoose = require('mongoose') //Creates a variable to Include Mongoose with the node REQUIRE Function
 const port = 4000 //Define a Port variable
 
 app.use(cors());//Specify the Server app to use CORS
@@ -13,6 +14,21 @@ app.use(function (req, res, next) {//Add CORS Access Control specs to header of 
         "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+
+const connectionString = "mongodb+srv://matt:matt@mwinfield.iyix2.mongodb.net/books?retryWrites=true&w=majority"//Store the MongoDB Connection URL
+mongoose.connect(connectionString, { useNewUrlParser: true });//Use mongoose to connect to our MongoDB Database
+
+const Schema = mongoose.Schema;//Create a Mongoose Schema to store to the DB
+var bookSchema = new Schema({//Map the Schema with the book variables
+    Title: String,
+    Author: String,
+    Year: String,
+    ISBN: String,
+    Genre: String,
+    Cover: String
+});
+var BookModel = mongoose.model("book", bookSchema)//Create a Data Model using the Schema Interface to store as an object
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -28,36 +44,18 @@ app.listen(port, () => {//Create a Node HTTP Server and Specify the Port to list
     console.log(`Example app listening at http://localhost:${port}`)
 })
 
-app.get('/api/books', (req, res, next) => {//Create a Node response to a HTTP Get request at the /api/books Address of localHost, responding with JSON Data
-    const books = [
-        {
-            "Title": "DUNE",
-            "Author": "Frank Herbert",
-            "Year": "1965",
-            "ISBN": "9780441013593",
-            "Genre": "Science Fiction",
-            "Cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1620503959l/39776179.jpg"
-        },
-        {
-            "Title": "Rendezvous with Rama",
-            "Author": "Arthur C. Clarke",
-            "Year": "1973",
-            "ISBN": "9781857231588",
-            "Genre": "Science Fiction",
-            "Cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1405456427l/112537.jpg"
-        },
-        {
-            "Title": "Starship Troopers",
-            "Author": "Robert A Heinlen",
-            "Year": "1959",
-            "ISBN": "9780441783588",
-            "Genre": "Science Fiction",
-            "Cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1614054412l/17214.jpg"
-        }
-    ];
-    res.status(200).json({// As well as a response message if successful
-        message: 'Posts fetched succesfully!',
-        books: books
+app.get('/api/books', (req, res) => {//Create another Node response to a HTTP Get request at the /api/books Address of localHost, responding with JSON Data
+    BookModel.find((err, data) => {//Use Mongoose Find method to retrieve data from Data Model
+        console.log(data);
+        res.json(data);//Return Data model from DB as JSON
+    })
+})
+
+app.get('/api/books/:id', (req, res) => {//Create another Node response to a HTTP Get request at the /api/books/:id Address of localHost
+    console.log(req.params.id)//Log the ID from the Address Bar
+
+    BookModel.findById(req.params.id, (err, data) => {//Use the Mongoose FindbyID Method and a callback function to return any document with that ID
+        res.json(data)
     });
 })
 
@@ -69,4 +67,15 @@ app.post('/api/books', (req, res) => {
     console.log(req.body.ISBN);
     console.log(req.body.Genre);
     console.log(req.body.Cover);
+
+    BookModel.create({//Use Mongoose Create Function to create document with the post data
+        Title: req.body.Title,
+        Author: req.body.Author,
+        Year: req.body.Year,
+        ISBN: req.body.ISBN,
+        Genre: req.body.Genre,
+        Cover: req.body.Cover
+    });
 })
+
+
