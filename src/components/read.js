@@ -1,36 +1,29 @@
 import React, { Component } from 'react';
 import { Books } from './books';
+import axios from 'axios';//Import Axios to Utilise JSON Promises
 
 
 export class Read extends React.Component {
-    state = {
-        books: [
-            {
-                "Title": "DUNE",
-                "Author": "Frank Herbert",
-                "Year": "1965",
-                "ISBN": "9780441013593",
-                "Genre": "Science Fiction",
-                "Cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1620503959l/39776179.jpg"
-            },
-            {
-                "Title": "Rendezvous with Rama",
-                "Author": "Arthur C. Clarke",
-                "Year": "1973",
-                "ISBN": "9781857231588",
-                "Genre": "Science Fiction",
-                "Cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1405456427l/112537.jpg"
-            },
-            {
-                "Title": "Starship Troopers",
-                "Author": "Robert A Heinlen",
-                "Year": "1959",
-                "ISBN": "9780441783588",
-                "Genre": "Science Fiction",
-                "Cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1614054412l/17214.jpg"
-            }
-        ]
+    state = {//A Variable to store JSON Data 
+        books: []
     };
+
+
+    componentDidMount() {//A Method that will invoke immediately after this component gets mounted
+        axios.get("http://localhost:4000/api/books")
+            .then(//returns this method if promise is fulfilled
+                (response) => {
+                    //update the state variable with the promised JSON BLOB
+                    this.setState({ books: response.data.books })
+                }
+            )
+            .catch(//returns this method if promise is not fulfilled
+                (error) => {
+                    console.log(error)//log the promise error to the console
+                }
+            );
+    }
+
     render() {/*Render Method To display Read*/
         return (
             <div>

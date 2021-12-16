@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 
 export class Create extends React.Component {
@@ -13,6 +14,7 @@ export class Create extends React.Component {
         this.onChangeBookYear = this.onChangeBookYear.bind(this);
         this.onChangeBookISBN = this.onChangeBookISBN.bind(this);
         this.onChangeBookGenre = this.onChangeBookGenre.bind(this);
+        this.onChangeBookCover = this.onChangeBookCover.bind(this);
 
         //construct the created movie object's properties
         this.state = {
@@ -65,7 +67,25 @@ export class Create extends React.Component {
             Genre: '',
             Cover: ''
         })
+
+        const newBook = {
+            Title: this.state.Title,
+            Author: this.state.Author,
+            Year: this.state.Year,
+            ISBN: this.state.ISBN,
+            Genre: this.state.Genre,
+            Cover: this.state.Cover
+        }
+
+        axios.post('http://localhost:4000/api/books', newBook)//Post request that will return a Promise
+            .then((res) => {
+                console.log(res)//If promise fulfilled, log it to console
+            })
+            .catch((err) => {
+                console.log(err)//Otherwise log the error
+            });
     }
+
 
 
     render() {/* Render Method To display create*/
@@ -84,7 +104,7 @@ export class Create extends React.Component {
                         <label>Add Book Author: </label>
                         <input type="text"
                             className="form-control"
-                            value={this.state.Year}
+                            value={this.state.Author}
                             onChange={this.onChangeBookAuthor}
                         />
                     </div>
@@ -92,7 +112,7 @@ export class Create extends React.Component {
                         <label>Add Book Year: </label>
                         <textarea type="text"
                             className="form-control"
-                            value={this.state.Poster}
+                            value={this.state.Year}
                             onChange={this.onChangeBookYear}
                         ></textarea>
                     </div>
@@ -100,7 +120,7 @@ export class Create extends React.Component {
                         <label>Add Book Genre: </label>
                         <textarea type="text"
                             className="form-control"
-                            value={this.state.Poster}
+                            value={this.state.Genre}
                             onChange={this.onChangeBookGenre}
                         ></textarea>
                     </div>
@@ -108,7 +128,7 @@ export class Create extends React.Component {
                         <label>Add Book ISBN: </label>
                         <textarea type="text"
                             className="form-control"
-                            value={this.state.Poster}
+                            value={this.state.ISBN}
                             onChange={this.onChangeBookISBN}
                         ></textarea>
                     </div>
@@ -116,7 +136,7 @@ export class Create extends React.Component {
                         <label>Add Book Cover: </label>
                         <textarea type="text"
                             className="form-control"
-                            value={this.state.Poster}
+                            value={this.state.Cover}
                             onChange={this.onChangeBookCover}
                         ></textarea>
                     </div>
