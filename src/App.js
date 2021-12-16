@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import Main from './components/main';
 import { Create } from './components/create';
 import { Read } from './components/read';
@@ -8,12 +7,13 @@ import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
 import {
   BrowserRouter as Router,
-  Routes,
+  Switch,
   Route
 } from 'react-router-dom';
 import './App.css';
+import { Edit } from './components/edit';
 
-
+//
 function App() {
   return (
     <Router>
@@ -29,13 +29,14 @@ function App() {
             </Nav>
           </Container>
         </Navbar>{/* Close Navbar */}
-        <Routes>{/* Switch Statement for CSR */}
-          {/* Set up route paths to each component */
-          /*Using the new Route-Path- element tag*/}
-          <Route path="/" element={<Main />}></Route>
-          <Route path="/read" element={<Read />}></Route>
-          <Route path="/create" element={<Create />}></Route>
-        </Routes>
+        <Switch>{/* Switch Statement for CSR */}
+          {/* Set up route paths to each component */}
+          <Route path="/" component={Main} exact></Route>
+          <Route path="/create" component={Create}></Route>
+          <Route path="/read" component={Read}></Route>
+          <Route path="/edit/:id" component={Edit}></Route>
+
+        </Switch>
       </div>
     </Router>
   );

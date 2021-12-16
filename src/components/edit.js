@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 
-export class Create extends React.Component {
+export class Edit extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         //Bind the onMethods
         this.onSubmit = this.onSubmit.bind(this);
@@ -15,6 +15,8 @@ export class Create extends React.Component {
         this.onChangeBookISBN = this.onChangeBookISBN.bind(this);
         this.onChangeBookGenre = this.onChangeBookGenre.bind(this);
         this.onChangeBookCover = this.onChangeBookCover.bind(this);
+
+
 
         //construct the created book object's properties
         this.state = {
@@ -26,6 +28,29 @@ export class Create extends React.Component {
             Cover: ''
         }
     }
+
+    componentDidMount() {//When this component is Mounted/Active
+        console.log(this.props.match.params.id);
+
+        axios.get('http://localhost:4000/api/movies/' + this.props.match.params.id)
+            .then(//returns this method if promise is fulfilled
+                (response) => {
+                    //update the form with the Document Data
+                    this.setState({
+                        _id: response.data._id,
+                        Title: response.data.title,
+                        Year: response.data.year,
+                        Poster: response.data.poster
+                    })
+                }
+            )
+            .catch(//returns this method if promise is not fulfilled
+                (error) => {
+                    console.log(error)//log the promise error to the console
+                }
+            )
+    }
+
 
     onChangeBookTitle(e) {//add the forms title to the constructed book object 
         this.setState({ Title: e.target.value })
@@ -134,7 +159,7 @@ export class Create extends React.Component {
                     </div>
                     <div className="form-group">
                         <input type="submit"
-                            value="Add Book"
+                            value="Edit Book"
                             className="btn btn-primary"
                         ></input>
                     </div>

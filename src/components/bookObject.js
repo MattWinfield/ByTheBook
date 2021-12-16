@@ -21,6 +21,7 @@ export class BookObject extends React.Component {
                             </footer>
                         </blockquote>
                     </Card.Body>
+                    <Link to={"/edit/" + this.props.book._id} className="btn btn-primary">Edit</Link>
                 </Card>
             </div>
         );
