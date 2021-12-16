@@ -32,15 +32,18 @@ export class Edit extends React.Component {
     componentDidMount() {//When this component is Mounted/Active
         console.log(this.props.match.params.id);
 
-        axios.get('http://localhost:4000/api/movies/' + this.props.match.params.id)
+        axios.get('http://localhost:4000/api/books/' + this.props.match.params.id)
             .then(//returns this method if promise is fulfilled
                 (response) => {
                     //update the form with the Document Data
                     this.setState({
                         _id: response.data._id,
-                        Title: response.data.title,
-                        Year: response.data.year,
-                        Poster: response.data.poster
+                        Title: response.data.Title,
+                        Author: response.data.Author,
+                        Year: response.data.Year,
+                        ISBN: response.data.ISBN,
+                        Genre: response.data.Genre,
+                        Cover: response.data.Cover
                     })
                 }
             )
@@ -85,7 +88,8 @@ export class Edit extends React.Component {
             + " Genre: " + this.state.Genre
             + " Cover: " + this.state.Cover);
 
-        const newBook = {
+        const editedBook = {
+            _id: this.state._id,
             Title: this.state.Title,
             Author: this.state.Author,
             Year: this.state.Year,
@@ -94,9 +98,9 @@ export class Edit extends React.Component {
             Cover: this.state.Cover
         }
 
-        axios.post('http://localhost:4000/api/books', newBook)//Post request that will return a Promise
+        axios.put('http://localhost:4000/api/books/' + this.state._id, editedBook)//Put request that will return a Promise
             .then((res) => {
-                console.log(res)//If promise fulfilled, log it to console
+                console.log(res.data)//If promise fulfilled, log it to console
             })
             .catch((err) => {
                 console.log(err)//Otherwise log the error
@@ -110,7 +114,7 @@ export class Edit extends React.Component {
             <div className="App">
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Add Book Title: </label>
+                        <label>Edit Book Title: </label>
                         <input type="text"
                             className="form-control"
                             value={this.state.Title}
@@ -118,7 +122,7 @@ export class Edit extends React.Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Add Book Author: </label>
+                        <label>Edit Book Author: </label>
                         <input type="text"
                             className="form-control"
                             value={this.state.Author}
@@ -126,7 +130,7 @@ export class Edit extends React.Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Add Book Year: </label>
+                        <label>Edit Book Year: </label>
                         <textarea type="text"
                             className="form-control"
                             value={this.state.Year}
@@ -134,7 +138,7 @@ export class Edit extends React.Component {
                         ></textarea>
                     </div>
                     <div className="form-group">
-                        <label>Add Book ISBN: </label>
+                        <label>Edit Book ISBN: </label>
                         <textarea type="text"
                             className="form-control"
                             value={this.state.ISBN}
@@ -142,7 +146,7 @@ export class Edit extends React.Component {
                         ></textarea>
                     </div>
                     <div className="form-group">
-                        <label>Add Book Genre: </label>
+                        <label>Edit Book Genre: </label>
                         <textarea type="text"
                             className="form-control"
                             value={this.state.Genre}
@@ -150,7 +154,7 @@ export class Edit extends React.Component {
                         ></textarea>
                     </div>
                     <div className="form-group">
-                        <label>Add Book Cover: </label>
+                        <label>Edit Book Cover: </label>
                         <textarea type="text"
                             className="form-control"
                             value={this.state.Cover}
