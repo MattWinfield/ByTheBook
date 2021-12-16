@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import axios from 'axios';//Import Axios to Utilise JSON Promises
 
 
 export class BookObject extends React.Component {
+
+    constructor() {
+        super();
+
+        this.RemoveBook = this.RemoveBook.bind(this);
+    }
+
+    RemoveBook(e) {
+        e.preventDefault();
+        axios.delete("http://localhost:4000/api/books/" + this.props.book._id)
+            .then(() => {
+                this.props.RefreshData();
+            })
+            .catch();
+    }
+
     render() {/*Component Render Method To display BookObject*/
         return (
             <div>
@@ -22,6 +40,7 @@ export class BookObject extends React.Component {
                         </blockquote>
                     </Card.Body>
                     <Link to={"/edit/" + this.props.book._id} className="btn btn-primary">Edit</Link>
+                    <Button variant="danger" onClick={this.RemoveBook}>Remove</Button>
                 </Card>
             </div>
         );

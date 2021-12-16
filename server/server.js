@@ -84,3 +84,10 @@ app.put('/api/books/:id', (req, res) => {//Create another Node response to a HTT
     );
 })
 
+app.delete('/api/books/:id', (req, res) => {//Create another Node response to a HTTP Delete request at the /api/books/:id Address of localHost
+    console.log("Delete Book: " + req.params.id)//Log the ID from the Address Bar
+    BookModel.findByIdAndDelete(req.params.id, (err, data) => {//Use the Mongoose FindbyIDAndUpdate Method and a callback function to Update any document with that ID
+        res.send(data)
+    }
+    );
+})
