@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
 import axios from 'axios';//Import Axios to Utilise JSON Promises
 
 
@@ -24,24 +22,18 @@ export class BookObject extends React.Component {
 
     render() {/*Component Render Method To display BookObject*/
         return (
-            <div>
-                <Card>
-                    <Card.Header>{this.props.book.Title}</Card.Header>{/*Print a Card Head with the JSON Data named Title*/}
-                    <Card.Body>
-                        <blockquote className="blockquote mb-0">
-                            <img src={this.props.book.Cover} width="200px" height="200px"></img>{/*Print an Image with the JSON Data named Cover*/}
-                            <footer className="blockquote-footer">
-                                <p>{this.props.book.Author}</p>{/*Print a Footer element with the JSON Data named Author*/}
-                                <p>{this.props.book.Year}</p>{/*Print a Footer element with the JSON Data named Year*/}
-                                <p>{this.props.book.Genre}</p>{/*Print a Footer element with the JSON Data named Genre*/}
-                                <p>{this.props.book.ISBN}</p>{/*Print a Footer element with the JSON Data named ISBN*/}
 
-                            </footer>
-                        </blockquote>
-                    </Card.Body>
-                    <Link to={"/edit/" + this.props.book._id} className="btn btn-primary">Edit</Link>
-                    <Button variant="danger" onClick={this.RemoveBook}>Remove</Button>
-                </Card>
+            <div class="book">
+                <div class="spine">
+                    <h1>{this.props.book.Title}</h1>
+                    <h2>{this.props.book.Author}</h2>
+                </div>
+                <div class="cover">
+                    <img src={this.props.book.Cover}></img>
+                    <div class="overlay">Published: {this.props.book.Year}<br />Genre: {this.props.book.Genre}<br />ISBN: {this.props.book.ISBN}</div>
+                </div>
+                <Link to={"/edit/" + this.props.book._id} className="editBtn">Edit</Link>
+                <button class="deleteBtn" onClick={this.RemoveBook}>X</button>
             </div>
         );
     }

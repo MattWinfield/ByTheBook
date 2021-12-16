@@ -23,15 +23,14 @@ function App() {
             <Navbar.Brand href="/">Navbar</Navbar.Brand>
             <Nav className="me-auto">
               {/* Nav Links to each Component and the paths */}
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/read">My Shelf</Nav.Link>
+              <Nav.Link href="/">My Shelf</Nav.Link>
               <Nav.Link href="/create">Add Book</Nav.Link>
             </Nav>
           </Container>
         </Navbar>{/* Close Navbar */}
         <Switch>{/* Switch Statement for CSR */}
           {/* Set up route paths to each component */}
-          <Route path="/" component={Main} exact></Route>
+          <Route path="/" component={Read} exact></Route>
           <Route path="/create" component={Create}></Route>
           <Route path="/read" component={Read}></Route>
           <Route path="/edit/:id" component={Edit}></Route>

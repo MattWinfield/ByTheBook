@@ -49,8 +49,10 @@ export class Read extends React.Component {
     render() {/*Render Method To display Read*/
         return (
             <div>
-                <h1>This is my Read Component</h1>
-                <Books books={this.state.books} RefreshData={this.RefreshData}></Books>
+                <h1>Welcome to Your Bookshelf</h1>
+                <div className="shelf">
+                    <Books books={this.state.books} RefreshData={this.RefreshData}></Books>
+                </div>
             </div>
         );
     }
