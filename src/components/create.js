@@ -60,7 +60,7 @@ export class Create extends React.Component {
             + " Genre: " + this.state.Genre
             + " Cover: " + this.state.Cover);
 
-        const newBook = {
+        const newBook = {//Create a new book from the submitted states
             Title: this.state.Title,
             Author: this.state.Author,
             Year: this.state.Year,

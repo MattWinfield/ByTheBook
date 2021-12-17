@@ -7,15 +7,14 @@ export class BookObject extends React.Component {
 
     constructor() {
         super();
-
-        this.RemoveBook = this.RemoveBook.bind(this);
+        this.RemoveBook = this.RemoveBook.bind(this);//Bind this method
     }
 
-    RemoveBook(e) {
+    RemoveBook(e) {//Remove Book function
         e.preventDefault();
-        axios.delete("http://localhost:4000/api/books/" + this.props.book._id)
+        axios.delete("http://localhost:4000/api/books/" + this.props.book._id)//Create an axios delete promise for the DB'd book with this ID
             .then(() => {
-                this.props.RefreshData();
+                this.props.RefreshData();//Then refresh the page
             })
             .catch();
     }

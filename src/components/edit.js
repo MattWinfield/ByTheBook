@@ -88,7 +88,7 @@ export class Edit extends React.Component {
             + " Genre: " + this.state.Genre
             + " Cover: " + this.state.Cover);
 
-        const editedBook = {
+        const editedBook = {//Create a new, edited book from the submitted states
             _id: this.state._id,
             Title: this.state.Title,
             Author: this.state.Author,
