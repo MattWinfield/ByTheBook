@@ -1,4 +1,3 @@
-import Main from './components/main';
 import { Create } from './components/create';
 import { Read } from './components/read';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,10 +19,9 @@ function App() {
       <div className="App">
         <Navbar bg="dark" variant="dark">{/* Navbar */}
           <Container>
-            <Navbar.Brand href="/">Navbar</Navbar.Brand>
+            <Navbar.Brand href="/">ByTheBook</Navbar.Brand>
             <Nav className="me-auto">
               {/* Nav Links to each Component and the paths */}
-              <Nav.Link href="/">My Shelf</Nav.Link>
               <Nav.Link href="/create">Add Book</Nav.Link>
             </Nav>
           </Container>
